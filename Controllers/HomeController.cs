@@ -16,7 +16,7 @@ public class HomeController : Controller
     public IActionResult Index()
     {
         grupo grupo = new grupo();
-        Viewbag = grupo.DevolverIntegrantes;
+        ViewBag.integrantes = grupo.DevolverIntegrantes();
         return View();
     }
 
@@ -29,5 +29,13 @@ public class HomeController : Controller
     public IActionResult Error()
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    }
+
+    public IActionResult SelectIntegrante(int dni)
+    {
+       grupo grupo = new grupo();
+       ViewBag.integranteSeleccionado = grupo.GetIntegrante(dni);
+       ViewBag.dni = dni;
+       return View("infoIntegrante");
     }
 }
